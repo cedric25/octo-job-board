@@ -130,10 +130,6 @@ describe('Unit | Services | Auth', () => {
       delete window.gapi;
     });
 
-    it('should exist', () => {
-      expect(authentication.disconnect).to.exist.and.to.be.a.function;
-    });
-
     it('should return a promise', (done) => {
       authentication.disconnect().then(done);
     });
@@ -189,10 +185,6 @@ describe('Unit | Services | Auth', () => {
   });
 
   describe('method #isAuthenticated', () => {
-    it('should exist', () => {
-      expect(authentication.isAuthenticated).to.exist.and.to.be.a.function;
-    });
-
     it('should return "true" if there is an entry for key "access_key" in the local storage', () => {
       // given
       window.localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, 'some_access_token');
@@ -217,10 +209,6 @@ describe('Unit | Services | Auth', () => {
   });
 
   describe('method #getAuthenticatedUser', () => {
-    it('should exist', () => {
-      expect(authentication.getAuthenticatedUser).to.exist.and.to.be.a.function;
-    });
-
     it('should return the authenticated user (as parsed JS Object) if exists', () => {
       // given
       const authenticatedUser = {
