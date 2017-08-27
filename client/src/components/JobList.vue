@@ -12,7 +12,7 @@
               <h1 class="job-results__title">Missions à staffer ({{ jobs.length }})</h1>
               <ul class="job-results__list">
                 <li class="job-results__item" v-for="job in jobs">
-                  <job-card :job="job"></job-card>
+                  <job-card v-on:interest="displayInterestModal" :job="job"></job-card>
                 </li>
               </ul>
             </section>
@@ -20,6 +20,7 @@
         </template>
       </div>
     </main>
+    <interest-modal :interestingJob="chosenJob"></interest-modal>
   </div>
 </template>
 
@@ -30,6 +31,7 @@
   import AppHeader from '@/components/AppHeader';
   import JobCard from '@/components/JobCard';
   import Circle from 'vue-loading-spinner/src/components/Circle';
+  import InterestModal from '@/components/InterestModal';
 
   export default {
 
@@ -38,6 +40,7 @@
     components: {
       AppHeader,
       JobCard,
+      InterestModal,
       'circle-loader': Circle,
     },
 
@@ -45,6 +48,7 @@
       return {
         jobs: [],
         isLoading: false,
+        chosenJob: null,
       };
     },
 
@@ -53,6 +57,11 @@
     },
 
     methods: {
+
+      displayInterestModal(job) {
+        this.chosenJob = job;
+        this.$modal.show('interest-modal');
+      },
 
       getJobs() {
         this.isLoading = true;
