@@ -11,12 +11,12 @@
             <section class="job-results job-results--delivery">
               <div class="job-results__header">
                 <h1 class="job-results__title">
-                  Missions à staffer ({{ jobs.length }})
+                  Missions à staffer ({{ displayedJobs.length }})
                 </h1>
                 <job-list-filters @selectCountryFilter="onSelectedCountryFilter"></job-list-filters>
               </div>
               <ul class="job-results__list">
-                <li class="job-results__item" v-for="job in jobs">
+                <li class="job-results__item" v-for="job in displayedJobs">
                   <job-card :job="job"></job-card>
                 </li>
               </ul>
@@ -52,7 +52,7 @@
     data() {
       return {
         allJobs: [],
-        jobs: [],
+        displayedJobs: [],
         isLoading: false,
       };
     },
@@ -70,7 +70,7 @@
           jobsApi.fetchAll(accessToken)
             .then((jobs) => {
               this.allJobs = this._sortJobsByProjectStatus(jobs);
-              this.jobs = this._sortJobsByProjectStatus(jobs);
+              this.displayedJobs = this._sortJobsByProjectStatus(jobs);
             })
             .then(() => {
               this.isLoading = false;
@@ -83,7 +83,7 @@
       },
 
       onSelectedCountryFilter(selectedCountryFilter) {
-        this.jobs = this._filterJobsByCountry(this.allJobs, selectedCountryFilter);
+        this.displayedJobs = this._filterJobsByCountry(this.allJobs, selectedCountryFilter);
       },
 
       _filterJobsByCountry(allJobs, selectedCountryFilter) {
