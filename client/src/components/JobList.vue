@@ -51,7 +51,7 @@
 
     data() {
       return {
-        allJobs: [],
+        jobsFromApi: [],
         displayedJobs: [],
         isLoading: false,
       };
@@ -69,7 +69,7 @@
           const accessToken = authenticationService.getAccessToken();
           jobsApi.fetchAll(accessToken)
             .then((jobs) => {
-              this.allJobs = this._sortJobsByProjectStatus(jobs);
+              this.jobsFromApi = this._sortJobsByProjectStatus(jobs);
               this.displayedJobs = this._sortJobsByProjectStatus(jobs);
             })
             .then(() => {
@@ -83,17 +83,17 @@
       },
 
       onSelectedCountryFilter(selectedCountryFilter) {
-        this.displayedJobs = this._filterJobsByCountry(this.allJobs, selectedCountryFilter);
+        this.displayedJobs = this._filterJobsByCountry(this.jobsFromApi, selectedCountryFilter);
       },
 
-      _filterJobsByCountry(allJobs, selectedCountryFilter) {
+      _filterJobsByCountry(jobsFromApi, selectedCountryFilter) {
         if (selectedCountryFilter === 'anyCountry') {
-          return allJobs;
+          return jobsFromApi;
         }
         if (selectedCountryFilter === 'France') {
-          return allJobs.filter(job => countries.indexOf(job.project.customer.sector.name) === -1);
+          return jobsFromApi.filter(job => countries.indexOf(job.project.customer.sector.name) === -1);
         }
-        return allJobs.filter(job => job.project.customer.sector.name === selectedCountryFilter);
+        return jobsFromApi.filter(job => job.project.customer.sector.name === selectedCountryFilter);
       },
     },
   };
