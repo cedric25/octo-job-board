@@ -408,40 +408,40 @@ describe('Unit | Component | JobCard.vue', () => {
     });
   });
 
-  describe('computed property #addPaddingToTitle', () => {
-    it('should return false if the job is in France', () => {
+  describe('computed property #jobTitleClass', () => {
+    it('should be empty if the job is in France', () => {
       // Given
       job.project.customer.sector.name = 'FR - La Poste';
 
       // When
-      const addPaddingToTitle = component.addPaddingToTitle;
+      const jobTitleClass = component.jobTitleClass;
 
       // Then
-      expect(addPaddingToTitle).to.be.false;
+      expect(jobTitleClass).to.empty;
     });
 
-    it('should return true if the job is overseas and the title is short enough', () => {
+    it('should include the specific \'short\' class if the job is overseas and the title is short enough', () => {
       // Given
       job.project.customer.sector.name = 'Australia';
       job.activity.title = 'Dev React'; // 9 chars
 
       // When
-      const addPaddingToTitle = component.addPaddingToTitle;
+      const jobTitleClass = component.jobTitleClass;
 
       // Then
-      expect(addPaddingToTitle).to.be.true;
+      expect(jobTitleClass).to.equal('job__title--short');
     });
 
-    it('should return false if the job is overseas but the title is too long', () => {
+    it('should be empty if the job is overseas but the title is too long', () => {
       // Given
       job.project.customer.sector.name = 'Australia';
       job.activity.title = 'Senior Spark/Hive Architect'; // 27 chars
 
       // When
-      const addPaddingToTitle = component.addPaddingToTitle;
+      const jobTitleClass = component.jobTitleClass;
 
       // Then
-      expect(addPaddingToTitle).to.be.false;
+      expect(jobTitleClass).to.empty;
     });
   });
 });
