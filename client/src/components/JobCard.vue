@@ -5,7 +5,7 @@
       <a :href="octopodUrl" target="_blank" class="job__link">
 
         <div class="job__profile">
-          <h2 class="job__title" :class="{ 'padding-left-40': addPaddingToTitle }">{{ job.activity.title }}</h2>
+          <h2 class="job__title" :class="jobTitleClass">{{ job.activity.title }}</h2>
           <div class="job__country-logo" v-if="showCountryLogo">
             <img class="job__country-image" :src="'../static/flags/' + jobSectorName + '.svg'" />
           </div>
@@ -88,6 +88,13 @@
         return '';
       },
 
+      jobTitleClass() {
+        if (this.showCountryLogo && this.job.activity.title.length < 20) {
+          return 'job__title--short';
+        }
+        return '';
+      },
+
       octopodUrl() {
         const octopodProjectId = this.job.project.id;
         return `https://octopod.octo.com/projects/${octopodProjectId}`;
@@ -129,10 +136,6 @@
           return countries.indexOf(this.job.project.customer.sector.name) !== -1;
         }
         return false;
-      },
-
-      addPaddingToTitle() {
-        return this.showCountryLogo && this.job.activity.title.length < 20;
       },
 
     },
@@ -226,7 +229,7 @@
     color: #07c;
   }
 
-  .padding-left-40 {
+  .job__title--short {
     padding-left: 40px;
   }
 
