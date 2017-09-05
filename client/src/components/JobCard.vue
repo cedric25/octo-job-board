@@ -7,7 +7,7 @@
         <div class="job__profile">
           <h2 class="job__title" :class="{ 'padding-left-40': addPaddingToTitle }">{{ job.activity.title }}</h2>
           <div class="job__country-logo" v-if="showCountryLogo">
-            <img :src="'../static/flags/' + jobSectorName + '.svg'" />
+            <img class="job__country-image" :src="'../static/flags/' + jobSectorName + '.svg'" />
           </div>
         </div>
 
@@ -240,7 +240,7 @@
     height: 1px;
   }
 
-  .job__country-logo img {
+  .job__country-image {
     width: 25px;
     height: 25px;
     border-radius: 50%;
